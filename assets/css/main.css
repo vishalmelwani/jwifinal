@@ -1778,6 +1778,12 @@ ul li > ul > li.active > a {
   background: url(../img/backgrounds/contact-form-bg.jpg);
   background-size: cover;
 }
+.contact-form-wrapper1 {
+background-color: #083c5a;
+    background-size: cover;
+    font-weight: 500;
+    color:white;
+}
 #contact .form-control {
   margin-bottom: 45px;
   background: transparent;
