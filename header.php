@@ -1,3 +1,7 @@
+<?php
+
+session_start();
+?>
 <!-- Roof area starts -->
     <div id="roof" class="hidden-xs" style="background-color: #083c5a;color: orange;">
         <div class="container">
@@ -96,94 +100,57 @@
                       Categories
                     </a>
                     <ul class="dropdown-menu">
+                        
+                        
+                        <?php
+                                        include './config.php';
+                                        $sql="select * from category";
+					$res=$con->query($sql);
+					while($row=$res->fetch_assoc())
+					{
+                        
+                        
+                        ?>
                       <li class="dropdown">
                         <a href="#">
-                          Mechanical
+                          <?php  echo $row['cname']; ?>
                         </a>
+                          <?php
+                                
+                                $sql1="select * from subcategory where cid='$row[id]'";
+                                $res1 = $con->query($sql1);
+                                if ($res1->num_rows > 0) 
+                                {
+                          
+                          ?>
                         <ul class="dropdown-menu sub-menu">
+                            <?php 
+                            while($row1=$res1->fetch_assoc())
+			{
+                                ?>
+                            
                           <li>
                             <a href="#">
-                              Turning
+                              <?php  echo $row1['sname']; ?>
                             </a>
                           </li>
-                          <li>
-                            <a href="#">
-                              Example 2
-                            </a>
-                          </li>
+                          
+                          <?php
+                        }
+                          ?>
+                          
                         </ul>
+                          
+                          <?php
+                                }
+                          ?>
                       </li>
-                      <li class="dropdown">
-                        <a href="services.html">
-                          Electronics
-                        </a>
-                        <ul class="dropdown-menu sub-menu">
-                          <li>
-                            <a href="services.html">
-                              Example 1
-                            </a>
-                          </li>
-                          <li>
-                            <a href="services2.html">
-                              Example 2
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="dropdown">
-                        <a href="team.html">
-                          Civil Service
-                        </a>
-                        <ul class="dropdown-menu sub-menu">
-                          <li>
-                            <a href="#">
-                              Service 1
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              Service 2
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                      <!--- <li>
-                        <a href="pricing.html">
-                          Pricing Tables
-                        </a>
-                      </li>
-                       <li>
-                        <a href="faq.html">
-                          FAQ Page
-                        </a>
-                      </li> 
-                      <li class="dropdown">
-                        <a href="#">
-                          Sidebar
-                        </a>
-                        <ul class="dropdown-menu sub-menu">
-                          <li>
-                            <a href="blog-full.html">
-                              Full width
-                            </a>
-                          </li>
-                          <li>
-                            <a href="blog-sidebar.html">
-                              Left Sidebar
-                            </a>
-                          </li>
-                          <li>
-                            <a href="sidebar-blog.html">
-                              Right Sidebar
-                            </a>
-                          </li>
-                        </ul>
-                      </li>                      
-                      <li>
-                        <a href="404.html">
-                          Page 404
-                        </a>
-                      </li>--->    
+                      
+                      <?php
+                      
+                                        }
+                      ?>
+                     
                     </ul>
                   </li>             
                   <li class="dropdown dropdown-toggle">
@@ -295,9 +262,53 @@
                     </ul--->
                     
                   </li>
+                  <?php
+                  include './config.php';
+                  if(isset($_SESSION['email']))
+                  {
+                  $email=$_SESSION['email'];
+                    $sql="select * from registration where email='$email'";
+                    $res = $con->query($sql);
+                    if ($res->num_rows > 0) 
+                    {
+                        while($row=$res->fetch_assoc())
+                        {
+                                $name=$row['fname']." ".$row['lname'];
+                        }
+                    
                   
-                  <li class="dropdown dropdown-toggle">
+                  ?>
+                   <li class="dropdown dropdown-toggle">
                     <a href="#" data-toggle="dropdown">
+                      <?php echo $name;  ?>
+                    </a>
+                       <ul class="dropdown-menu">
+                      <li>
+                        <a href="profile.php">
+                          My Profile                       </a>
+                      </li>
+                      <li>
+                        <a href="requirement.php">
+                          My Requirements
+                        </a>
+                      </li>
+                      <li>
+                        <a href="logout.php">
+                          Logout
+                        </a>
+                      </li>
+                       </ul>
+                   </li>
+                   
+                   
+                   <?php
+                   
+                  }}
+                    else
+                    {
+                   ?>
+                  <li class="dropdown dropdown-toggle">
+                    <a href="login.php" >
                       Login/Register
                     </a>
                     
@@ -334,7 +345,10 @@
                       </li>   
                     </ul>                    --->
                   </li>
+                  <?php
                   
+                  }
+                  ?>
                   <!-- Search in right of nav -->
                   <li class="search">
                     <a href="#" class="open-search">

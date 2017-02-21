@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+ <?php
+// Login start
+  if(isset($_REQUEST['login']))
+  {
+  		include_once('config.php');
+		$email=$_REQUEST['email'];
+		$password=$_REQUEST['password'];
+		$sql="select * from registration where email='$email'";
+		$res=$con->query($sql);
+		if($res->num_rows > 0)
+		{
+			while($row=$res->fetch_assoc())
+			{
+				if($row['password']==$password)
+				{
+					if($row['status']=="Active")
+					{
+						session_start();
+						$_SESSION['email']=$email;
+						$_SESSION['id']=$row['id'];
+						header('location:index.php');
+					}
+					else
+					{
+						echo "<script>alert('Wait For Admin Approval')</script>";
+					}
+				}
+				else
+				{
+					echo "<script>alert('Your Password is incorrect')</script>";
+				}
+			}
+		}
+		else
+		{
+			echo "<script>alert('Your Email is incorrect')</script>";
+		}
+  }  
+?>
+ 
 <!-- Mirrored from demo.graygrids.com/themes/plain-bs/contact1.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 17:06:44 GMT -->
 <head>
     <meta charset="utf-8">
@@ -76,7 +115,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 contact-form wow fadeIn" data-wow-delay=".2s">
-            <form role="form" id="contactForm" data-toggle="validator" class="shake">
+              <form  action="#" method="post">
                 <div class="col-sm-3"></div>
                     <div class="col-sm-6">
 
@@ -84,17 +123,17 @@
                         <center><h1><b>Login</b></h1></center>
                       <div class="form-group">
                         <div class="help-block with-errors"></div>
-                        <input type="email" class="form-control radius-input" id="email" placeholder="Enter email" required data-error="Please enter your email" required>
+                        <input type="email" class="form-control radius-input" id="email" name="email" placeholder="Enter email" required data-error="Please enter your email" required>
                       </div>
 
                       <div class="form-group">
                          <div class="help-block with-errors"></div>
-                         <input type="password" class="form-control radius-input" id="msg_subject" placeholder="Password" required data-error="Please enter your message subject" required>
+                         <input type="password" class="form-control radius-input" id="msg_subject" name="password" placeholder="Password" required data-error="Please enter your message subject" required>
                       </div>
                         
                          <div class="form-group">
                          <div class="help-block with-errors"></div>
-                         <center>   <input type="submit" value="Login" class="btn btn-common btn-lg"><br> OR <br>
+                         <center>   <input type="submit" value="Login" name="login" class="btn btn-common btn-lg"><br> OR <br>
                          
                          <h4><a href="register.php">Get Register With Us</a></h4></center>
                       </div>

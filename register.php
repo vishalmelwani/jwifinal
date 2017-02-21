@@ -1,4 +1,46 @@
 <!DOCTYPE html>
+<?php    
+// register user start
+		if(isset($_REQUEST['_register']))
+		{
+			
+			include_once('config.php');
+			date_default_timezone_set('Asia/Kolkata');
+			$fname=$_REQUEST['fname'];
+			$lname=$_REQUEST['lname'];
+			$email=$_REQUEST['email'];
+			$password=$_REQUEST['password'];
+			$contact=$_REQUEST['contact'];
+			$token=mt_rand(1000,2000);
+			$datetim=date("Y-m-d h:i:s",time());
+			$subject="Your Token Id";
+			$message="For varification, Your token id is :".$token;
+			$header = "From:info@jobworkindia.in";
+			$sql="select * from registration where email='$email'";
+			$res = $con->query($sql);
+			if ($res->num_rows > 0) 
+			{
+				echo "<script>alert('Your are already Register with us..!!')</script>";
+			}
+			else 
+			{
+				 $sql="Insert into registration (id,fname,lname,email,password,contact,token,time,status) values('','$fname','$lname','$email','$password','$contact','$token','$datetim','Deactive')";
+				$stmt = $con->query($sql);
+				mail($email,$subject,$message,$header);
+				if($stmt)
+				{	
+					echo $_SESSION['email']=$email;
+					
+					echo "<script>alert('Register Successfully done. :-)')</script>";
+					
+					header('location:login.php');
+				}
+			}
+		}
+		
+// register user end
+
+?>
 <html lang="en">
   
 <!-- Mirrored from demo.graygrids.com/themes/plain-bs/contact1.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 17:06:44 GMT -->
@@ -78,7 +120,7 @@
   
   
   <div class="col-md-12 contact-form wow fadeIn" data-wow-delay=".2s">
-            <form role="form" id="contactForm" data-toggle="validator" class="shake">
+      <form action="#" method="post">
                 <div class="form-group col-sm-3"></div>
                 <div class="form-group col-sm-6">
                      <center><h1><b>Register</b></h1></center>
@@ -104,13 +146,13 @@
                          <div class="help-block with-errors"></div>
                          <input type="text" class="form-control radius-input" id="contact" placeholder="Contact" name="contact" required data-error="Please enter your Contact Number" required>
                       </div>
-                     <div class="form-group">
-                         <div class="help-block with-errors"></div>
-                     <button type="submit" id="form-submit" class="btn btn-common btn-lg pull-right ">Register</button>
-                     </div>
+                    
+                         
+                         <input type="submit" id="form-submit" name="_register" value="Registet" class="btn btn-common btn-lg pull-right">
+                     
                 </div>
                 <div class="form-group col-sm-3"></div>
-                <div id="msgSubmit" class="h3 text-center hidden"></div>
+                
                 <div class="clearfix"></div>
             </form>
           </div>
