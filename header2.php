@@ -1,7 +1,4 @@
-<?php
 
-session_start();
-?>
 <!-- Roof area starts -->
     <div id="roof" class="hidden-xs" style="background-color: #083c5a;color: orange;">
         <div class="container">
@@ -287,7 +284,7 @@ session_start();
                         <a href="profile.php">
                           My Profile                       </a>
                       </li>
-                     
+                      
                       <li>
                         <a href="logout.php">
                           Logout

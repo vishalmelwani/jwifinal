@@ -1,5 +1,35 @@
- <!-- Footer Section -->
-    <footer>
+<!-- Notice Section -->
+    <section id="notice">
+    <!-- Container Starts -->
+      <div class="container">
+      <!-- Row Starts -->
+        <div class="row">
+          <!-- Notice Ciontents Starts -->
+          <div class="notice-content clearfix wow fadeIn">
+            <div class="col-md-10">
+              <h4>
+                JobWork India
+              </h4>
+              <p>
+                Your service is our responsibility
+              </p>
+            </div>
+            <!-- Notice Button -->
+            <div class="col-md-2 notice-button">
+                <a href="register.php" class="btn btn-common btn-lg pull-right">
+                <i class="fa fa-shopping-cart">
+                </i>
+                Get Stared Now
+              </a>
+            </div>
+          </div><!-- Notice Container Ends -->
+        </div><!-- Row Starts -->
+      </div><!-- Container Ends -->
+    </section>
+    <!-- Notice Section Ends --> 
+    
+<!-- Footer Section -->
+<footer style="background-color: #083c5a;">
       <!-- Container Starts -->
       <div class="container">
         <!-- Row Starts -->

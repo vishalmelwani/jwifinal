@@ -179,12 +179,21 @@
       <div id="portfolio-items" class="portfolio-items text-center">
 
         <!-- Portfolio Item Starts -->
+<?php
+		include('config.php');
+		$sql="select * from category LIMIT 6";
+		$res=$con->query($sql);
+		while($row=$res->fetch_assoc())
+		{
+
+?>		
+		
         <div class="mix marketing planning">
           <figure class="effect-layla">
-            <img src="assets/img/portfolio/img1.jpg">
+            <img src="assets/img/portfolio/<?php echo $row['img']; ?>">
             <figcaption>
               <h3>
-                Mechanical
+                <?php echo $row['cname']; ?>
               </h3>
               <div class="portfolio-category">
                <!--- <span>Marketing</span>, <span>Planning</span>--->
@@ -192,6 +201,9 @@
             </figcaption>
           </figure>
         </div><!-- Portfolio Item Ends -->
+		<?php
+		}
+		?>
       
         <!-- Portfolio Item Starts -->
         <div class="mix branding planning">
